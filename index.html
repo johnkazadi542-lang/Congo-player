@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>CONGO PLAY by LOKI NOX — Paris Sportifs RDC</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Manrope', system-ui, -apple-system, sans-serif; }
+    html { scrollbar-gutter: stable; }
+    body { overscroll-behavior: none; }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    .tap { min-height: 48px; min-width: 48px; }
+    .glass { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+  </style>
+</head>
+<body class="bg-[#07070b] text-white selection:bg-red-600/30 selection:text-red-200">
+  
+  <!-- HEADER -->
+  <header class="sticky top-0 z-40 border-b border-white/10 glass bg-[#b80000]/95">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Mobile: stack, Desktop: single row -->
+      <div class="flex flex-col md:flex-row md:items-center gap-3 py-3">
+        <!-- LINE 1: Logo / Name -->
+        <div class="flex items-center justify-between w-full md:w-auto">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-2xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.3)] flex items-center justify-center ring-2 ring-white/20">
+              <span class="text-2xl font-black text-[#b80000] tracking-tighter">C</span>
+            </div>
+            <div>
+              <div class="flex items-baseline gap-2">
+                <h1 class="text-[22px] sm:text-[26px] font-extrabold tracking-tight leading-none">CONGO PLAY</h1>
+                <span class="hidden sm:inline text-[10px] px-2 py-0.5 rounded-full bg-black/20 border border-white/20 font-bold tracking-widest">DEMO</span>
+              </div>
+              <div class="flex items-center gap-2 -mt-0.5">
+                <p class="text-[11px] font-semibold text-white/80 tracking-wide">by LOKI NOX</p>
+                <span class="text-[10px] px-1.5 py-0.5 rounded bg-green-500/20 text-green-300 border border-green-500/30 font-bold" id="demo-days">60 JOURS</span>
+              </div>
+            </div>
+          </div>
+          <!-- Mobile balance -->
+          <div class="md:hidden flex items-center gap-2">
+            <div class="px-3 py-1.5 rounded-full bg-black/30 border border-white/15 text-sm font-bold" id="bal-mob">150 000 CDF</div>
+          </div>
+        </div>
+
+        <!-- LINE 2: Balance / Currency / Lang (mobile second line) -->
+        <div class="flex items-center justify-between md:justify-end w-full gap-2 flex-wrap">
+          <!-- Balance Desktop -->
+          <div class="hidden md:flex items-center gap-2.5 pl-3 pr-4 py-2 rounded-full bg-black/25 border border-white/15">
+            <div class="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div>
+              <div class="text-[10px] leading-none opacity-70" data-t="balance">Solde</div>
+              <div class="font-bold leading-tight text-[15px]" id="bal-desk">150 000 CDF</div>
+            </div>
+            <div class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 ml-1">LIVE</div>
+          </div>
+
+          <!-- Controls -->
+          <div class="flex items-center gap-2">
+            <!-- Currency -->
+            <div class="flex items-center p-1 rounded-full bg-black/30 border border-white/15 shadow-inner">
+              <button id="cdfBtn" class="tap h-9 px-3.5 text-[13px] font-extrabold rounded-full bg-white text-[#b80000] transition">CDF</button>
+              <button id="usdBtn" class="tap h-9 px-3.5 text-[13px] font-bold rounded-full text-white/80 hover:text-white transition">USD</button>
+            </div>
+
+            <!-- Languages — VISIBLE ON MOBILE -->
+            <div class="flex items-center p-1 rounded-full bg-black/30 border border-white/15">
+              <button data-lang="fr" class="lang tap h-9 w-9 text-[12px] font-extrabold rounded-full bg-white text-[#b80000]">FR</button>
+              <button data-lang="en" class="lang tap h-9 w-9 text-[12px] font-bold rounded-full text-white/70 hover:text-white">EN</button>
+              <button data-lang="ln" class="lang tap h-9 w-9 text-[12px] font-bold rounded-full text-white/70 hover:text-white">LN</button>
+            </div>
+
+            <!-- Theme -->
+            <button id="themeBtn" class="tap w-10 h-10 grid place-items-center rounded-full bg-black/30 border border-white/15 hover:bg-black/40 transition" aria-label="Theme">
+              <svg id="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+              <svg id="sun" class="hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- SPORTS STRIP -->
+  <nav class="sticky top-[108px] sm:top-[112px] md:top-[69px] z-30 border-b border-white/5 glass bg-[#0b12]/80">
+    <div class="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8">
+      <div class="flex items-center gap-2.5 sm:gap-3 overflow-x-auto scrollbar-hide py-3">
+        <button data-sport="all" class="sport active flex-shrink-0 flex items-center gap-2 h-12 min-h-[48px] px-4 rounded-xl bg-[#b80000] text-white font-bold text-[14px] shadow-lg shadow-red-900/20 border border-red-400/30">
+          <span class="text-lg">🔥</span> <span data-t="all">Tout</span>
+        </button>
+        <button data-sport="football" class="sport flex-shrink-0 flex items-center gap-2 h-12 min-h-[48px] px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-[14px] font-semibold whitespace-nowrap">
+          <img src="https://img.icons8.com/fluency/24/football2.png" class="w-5 h-5" alt=""> Football
+        </button>
+        <button data-sport="basket" class="sport flex-shrink-0 flex items-center gap-2 h-12 min-h-[48px] px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-[14px] font-semibold">
+          <img src="https://img.icons8.com/fluency/24/basketball.png" class="w-5 h-5" alt=""> Basketball
+        </button>
+        <button data-sport="tennis" class="sport flex-shrink-0 flex items-center gap-2 h-12 min-h-[48px] px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-[14px] font-semibold">
+          <img src="https://img.icons8.com/fluency/24/tennis.png" class="w-5 h-5" alt=""> Tennis
+        </button>
+        <button data-sport="rugby" class="sport flex-shrink-0 flex items-center gap-2 h-12 min-h-[48px] px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-[14px] font-semibold">
+          <img src="https://img.icons8.com/fluency/24/rugby.png" class="w-5 h-5" alt=""> Rugby
+        </button>
+        <button data-sport="baseball" class="sport flex-shrink-0 flex items-center gap-2 h-12 min-h-[48px] px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-[14px] font-semibold">
+          <img src="https://img.icons8.com/fluency/24/baseball.png" class="w-5 h-5" alt=""> Baseball
+        </button>
+        <button data-sport="hockey" class="sport flex-shrink-0 flex items-center gap-2 h-12 min-h-[48px] px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-[14px] font-semibold">
+          <img src="https://img.icons8.com/fluency/24/ice-hockey.png" class="w-5 h-5" alt=""> Hockey
+        </button>
+        <button data-sport="volley" class="sport flex-shrink-0 flex items-center gap-2 h-12 min-h-[48px] px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-[14px] font-semibold">
+          <img src="https://img.icons8.com/fluency/24/volleyball.png" class="w-5 h-5" alt=""> Volley
+        </button>
+        <button data-sport="boxing" class="sport flex-shrink-0 flex items-center gap-2 h-12 min-h-[48px] px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-[14px] font-semibold">
+          <img src="https://img.icons8.com/fluency/24/boxing.png" class="w-5 h-5" alt=""> Boxe
+        </button>
+        <button data-sport="mma" class="sport flex-shrink-0 flex items-center gap-2 h-12 min-h-[48px] px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-[14px] font-semibold">
+          <img src="https://img.icons8.com/fluency/24/mma-glove.png" class="w-5 h-5" alt=""> MMA
+        </button>
+        <button data-sport="cricket" class="sport flex-shrink-0 flex items-center gap-2 h-12 min-h-[48px] px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-[14px] font-semibold">
+          <img src="https://img.icons8.com/fluency/24/cricket.png" class="w-5 h-5" alt=""> Cricket
+        </button>
+        <button data-sport="handball" class="sport flex-shrink-0 flex items-center gap-2 h-12 min-h-[48px] px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-[14px] font-semibold">
+          <img src="https://img.icons8.com/fluency/24/handball.png" class="w-5 h-5" alt=""> Handball
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-6">
+    <div class="grid grid-cols-1 xl:grid-cols-12 gap-4 lg:gap-6">
+      
+      <!-- LEFT: Leagues -->
+      <aside class="xl:col-span-3 2xl:col-span-2 order-2 xl:order-1">
+        <div class="bg-[#10101a]/80 border border-white/10 rounded-[20px] p-4 sm:p-5">
+          <div class="flex items-center justify-between mb-3">
+            <h2 class="font-extrabold text-[15px] tracking-wide flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span data-t="leagues">80+ LIGUES</span>
+            </h2>
+            <span class="text-[11px] px-2 py-1 rounded-full bg-red-600/20 text-red-300 border border-red-500/30 font-bold">LIVE</span>
+          </div>
+          <div class="relative mb-3">
+            <input id="leagueSearch" placeholder="Rechercher..." class="w-full h-11 rounded-xl bg-black/30 border border-white/10 pl-9 pr-3 text-sm outline-none focus:border-red-500/50" />
+            <svg class="absolute left-3 top-3.5 opacity-60" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          </div>
+          <div id="leagueList" class="space-y-1 max-h-[260px] xl:max-h-[520px] overflow-y-auto pr-1 -mr-1"></div>
+          <div class="mt-3 pt-3 border-t border-white/5 text-[11px] text-white/50">
+            <span data-t="coverage">Couverture: CAF, UEFA, NBA, ATP, etc.</span>
+          </div>
+        </div>
+
+        <!-- AI Card -->
+        <div class="mt-4 bg-gradient-to-br from-[#1a0b0b] to-[#2a0f0f] border border-red-900/50 rounded-[20px] p-4 sm:p-5">
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-xl bg-red-600/20 border border-red-500/30 grid place-items-center flex-shrink-0">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-red-400"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2M20 14h2M15 13v2M9 13v2"/></svg>
+            </div>
+            <div class="flex-1">
+              <h3 class="font-bold leading-tight">CONGO AI</h3>
+              <p class="text-[12px] text-white/70 mt-1" data-t="ai_desc">Prédictions en temps réel sur 80+ ligues</p>
+              <button id="aiToggle" class="mt-3 w-full h-10 rounded-xl bg-red-600 hover:bg-red-500 font-bold text-sm transition active:scale-[0.98]">Activer l'IA</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- CENTER: Matches -->
+      <section class="xl:col-span-6 2xl:col-span-7 order-1 xl:order-2">
+        <!-- Top bar -->
+        <div class="flex flex-wrap items-center gap-2 mb-4">
+          <div class="flex items-center gap-2 p-1 bg-[#10101a] border border-white/10 rounded-full">
+            <button class="tab active px-4 h-9 rounded-full bg-white text-black font-bold text-sm" data-tab="live">LIVE</button>
+            <button class="tab px-4 h-9 rounded-full text-white/70 font-semibold text-sm" data-tab="today" data-t="today">Aujourd'hui</button>
+            <button class="tab px-4 h-9 rounded-full text-white/70 font-semibold text-sm" data-t="tomorrow">Demain</button>
+          </div>
+          <div class="ml-auto flex items-center gap-2 text-[12px]">
+            <span class="px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/25 font-semibold">CDF/USD: <span id="rate">2,850</span></span>
+            <span class="px-2.5 py-1 rounded-full bg-white/5 border border-white/10">RDC</span>
+          </div>
+        </div>
+
+        <!-- Matches container -->
+        <div id="matches" class="space-y-3"></div>
+
+        <!-- Load more -->
+        <button class="w-full mt-4 h-12 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 font-semibold text-sm transition" data-t="load_more">Voir plus de matchs</button>
+      </section>
+
+      <!-- RIGHT: Betslip -->
+      <aside class="xl:col-span-3 2xl:col-span-3 order-3">
+        <div class="sticky top-[178px] xl:top-[140px]">
+          <div class="bg-[#10101a]/90 border border-white/10 rounded-[24px] overflow-hidden">
+            <div class="bg-gradient-to-r from-[#b80000] to-[#7f0000] px-5 py-4 flex items-center justify-between">
+              <h3 class="font-extrabold tracking-wide" data-t="betslip">Coupon</h3>
+              <span id="betCount" class="text-[11px] px-2 py-1 rounded-full bg-black/30 border border-white/20 font-bold">0</span>
+            </div>
+            <div id="bets" class="p-4 space-y-3 max-h-[300px] overflow-y-auto">
+              <div id="emptyBet" class="text-center py-8">
+                <div class="w-12 h-12 mx-auto rounded-2xl bg-white/5 grid place-items-center mb-3">🎫</div>
+                <p class="text-sm font-semibold opacity-80" data-t="empty">Aucune sélection</p>
+                <p class="text-xs opacity-50 mt-1" data-t="empty_sub">Cliquez sur une cote</p>
+              </div>
+            </div>
+            <div class="p-4 border-t border-white/5 bg-black/20 space-y-3">
+              <div class="flex items-center justify-between text-sm">
+                <span class="opacity-70" data-t="total_odd">Cote totale</span>
+                <span id="totalOdds" class="font-bold text-lg">1.00</span>
+              </div>
+              <div>
+                <label class="text-xs opacity-70" data-t="stake">Mise</label>
+                <div class="mt-1 flex gap-2">
+                  <input id="stake" type="number" value="5000" class="w-full h-11 rounded-xl bg-[#0b0b12] border border-white/10 px-3 outline-none focus:border-red-500/50 font-bold">
+                  <button data-quick="5000" class="quick h-11 px-3 rounded-xl bg-white/5 border border-white/10 text-xs font-bold hover:bg-white/10">5K</button>
+                  <button data-quick="10000" class="quick h-11 px-3 rounded-xl bg-white/5 border border-white/10 text-xs font-bold hover:bg-white/10">10K</button>
+                </div>
+              <div class="flex items-center justify-between">
+                <span class="text-sm opacity-70" data-t="win">Gain potentiel</span>
+                <span id="potential" class="font-extrabold text-emerald-400 text-lg">5,000 CDF</span>
+              </div>
+              <button id="placeBet" class="w-full h-12 rounded-xl bg-[#b80000] hover:bg-red-600 font-extrabold tracking-wide shadow-lg shadow-red-900/30 active:scale-[0.99] transition" data-t="place">PLACER LE PARI</button>
+              <p class="text-[10px] text-center opacity-50" data-t="terms">En plaçant, vous acceptez les règles CONGO PLAY</p>
+            </div>
+          </div>
+
+          <!-- WhatsApp -->
+          <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-2">
+            <a href="https://wa.me/243980092313" target="_blank" class="group flex items-center gap-3 p-3.5 rounded-2xl bg-[#0f1a12] border border-emerald-900/50 hover:bg-[#122017] transition">
+              <div class="w-10 h-10 rounded-xl bg-emerald-600 grid place-items-center shadow-lg shadow-emerald-900/30 group-hover:scale-105 transition">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M20.5 3.5A11 11 0 0 0 3.1 20.1L2 22l1.9-.5A11 11 0 1 0 20.5 3.5zM12 20.3a8.4 8.4 0 0 1-4.3-1.2l-.3-.2-2.5.7.7-2.4-.2-.3A8.3 8.3 0 1 1 12 20.3zm4.7-6.3c-.3-.1-1.6-.8-1.8-.9s-.4-.1-.6.1-.7.9-.8 1-.3.2-.6.1a6.7 6.7 0 0 1-2-1.2 7.5 7.5 0 0 1-1.4-1.7c-.1-.3 0-.4.1-.6l.4-.5.2-.3v-.4c0-.2-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.5 4 7 7 0 0 0 2 .6 2.7 2.7 0 0 0 1.8-.5 2 2 0 0 0 .5-1.5c0-.2 0-.3-.2-.4z"/></svg>
+              </div>
+              <div>
+                <div class="text-[11px] opacity-70 leading-none">WhatsApp Support</div>
+                <div class="font-bold">+243 980 092 313</div>
+              </div>
+            </a>
+            <a href="https://wa.me/243844679587" target="_blank" class="group flex items-center gap-3 p-3.5 rounded-2xl bg-[#0f1a12] border border-emerald-900/50 hover:bg-[#122017] transition">
+              <div class="w-10 h-10 rounded-xl bg-emerald-600 grid place-items-center shadow-lg shadow-emerald-900/30 group-hover:scale-105 transition">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M20.5 3.5A11 11 0 0 0 3.1 20.1L2 22l1.9-.5A11 11 0 1 0 20.5 3.5z"/></svg>
+              </div>
+              <div>
+                <div class="text-[11px] opacity-70 leading-none">WhatsApp VIP</div>
+                <div class="font-bold">+243 844 679 587</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="border-t border-white/5 mt-10 py-8 text-center text-xs text-white/50">
+    © 2025 CONGO PLAY by LOKI NOX — Demo 60 jours • Conversion CDF/USD en direct • 80+ ligues • IA intégrée
+  </footer>
+
+<script>
+const RATE = 2850;
+let currency = 'CDF';
+let lang = 'fr';
+let balanceCDF = 150000;
+let aiOn = false;
+let bets = [];
+
+const t = {
+  fr: { balance:'Solde', all:'Tout', leagues:'80+ LIGUES', coverage:'Couverture: CAF, UEFA, NBA, ATP, etc.', ai_desc:'Prédictions en temps réel sur 80+ ligues', today:"Aujourd'hui", tomorrow:'Demain', load_more:'Voir plus de matchs', betslip:'Coupon', empty:'Aucune sélection', empty_sub:'Cliquez sur une cote', total_odd:'Cote totale', stake:'Mise', win:'Gain potentiel', place:'PLACER LE PARI', terms:'En plaçant, vous acceptez les règles CONGO PLAY' },
+  en: { balance:'Balance', all:'All', leagues:'80+ LEAGUES', coverage:'Coverage: CAF, UEFA, NBA, ATP, etc.', ai_desc:'Real-time predictions across 80+ leagues', today:'Today', tomorrow:'Tomorrow', load_more:'Load more matches', betslip:'Betslip', empty:'No selection', empty_sub:'Tap an odd', total_odd:'Total odd', stake:'Stake', win:'Potential win', place:'PLACE BET', terms:'By placing, you accept CONGO PLAY rules' },
+  ln: { balance:'Mbongo', all:'Nyonso', leagues:'80+ LIGUES', coverage:'Bopesi: CAF, UEFA, NBA, ATP, etc.', ai_desc:'Botosi ya IA na ba ligues 80+', today:'Lelo', tomorrow:'Lobi', load_more:'Talá matches', betslip:'Coupon', empty:'Pona te', empty_sub:'Finá cote', total_odd:'Cote mobimba', stake:'Tia', win:'Okozua', place:'TIA PARI', terms:'Na kotia, ondimi mibeko' }
+};
+
+const leagues = [
+  'Linafoot RDC','Premier League','LaLiga','Serie A','Bundesliga','Ligue 1','UEFA Champions','CAF CL','NBA','EuroLeague','ATP Masters','WTA','Top 14 Rugby','MLB','NHL','Botola','Ligue 1 CIV','Premier Soccer',
+  'Liga MX','Brasileirão','Eredivisie','Primeira Liga','Jupiler Pro','Super Lig','Saudi Pro','MLS','Copa Libertadores','CAN','AFCON U20','Pro D2','Six Nations','Cricket IPL','Test Cricket'
+];
+
+const matchesData = [
+  {id:1, sport:'football', league:'Linafoot RDC', time:'LIVE 67\'', home:'TP Mazembe', away:'Vita Club', h:'1.85', x:'3.30', a:'4.10', live:true, score:'1-0'},
+  {id:2, sport:'football', league:'Premier League', time:'20:00', home:'Man City', away:'Arsenal', h:'2.10', x:'3.50', a:'3.20'},
+  {id:3, sport:'basket', league:'NBA', time:'LIVE Q3', home:'Lakers', away:'Celtics', h:'1.92', x:'—', a:'1.92', live:true, score:'82-79'},
+  {id:4, sport:'football', league:'LaLiga', time:'21:00', home:'Real Madrid', away:'Barça', h:'2.30', x:'3.60', a:'2.90'},
+  {id:5, sport:'tennis', league:'ATP Masters', time:'18:30', home:'Djokovic', away:'Alcaraz', h:'1.75', x:'—', a:'2.05'},
+  {id:6, sport:'rugby', league:'Top 14', time:'19:45', home:'Toulouse', away:'La Rochelle', h:'1.65', x:'22.0', a:'2.40'},
+  {id:7, sport:'football', league:'CAF CL', time:'16:00', home:'Al Ahly', away:'WAC', h:'1.95', x:'3.10', a:'3.90'},
+  {id:8, sport:'boxing', league:'WBC', time:'23:00', home:'Ngannou', away:'Fury', h:'2.80', x:'—', a:'1.45'},
+];
+
+function fmt(n){ return new Intl.NumberFormat('fr-CD').format(Math.round(n)); }
+function toCurrency(cdf){ return currency==='CDF' ? `${fmt(cdf)} CDF` : `$${(cdf/RATE).toFixed(2)}`; }
+
+function updateBalance(){
+  const val = toCurrency(balanceCDF);
+  document.getElementById('bal-desk').textContent = val;
+  document.getElementById('bal-mob').textContent = val;
+}
+
+function renderLeagues(filter=''){
+  const el = document.getElementById('leagueList');
+  el.innerHTML = leagues.filter(l => l.toLowerCase().includes(filter.toLowerCase())).map(l => `
+    <button class="w-full text-left px-3 h-10 rounded-xl hover:bg-white/5 border border-transparent hover:border-white/10 text-[13px] flex items-center justify-between group">
+      <span class="truncate">${l}</span>
+      <span class="text-[11px] px-1.5 py-0.5 rounded bg-white/10 group-hover:bg-red-600/30">${Math.floor(Math.random()*12)+1}</span>
+    </button>
+  `).join('');
+}
+renderLeagues();
+
+function renderMatches(list=matchesData){
+  const wrap = document.getElementById('matches');
+  wrap.innerHTML = list.map(m => `
+    <article class="group bg-[#10101a]/70 border border-white/10 hover:border-white/20 rounded-[20px] p-4 sm:p-5 transition">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="text-[11px] px-2 py-1 rounded-full bg-white/5 border border-white/10">${m.league}</span>
+        <span class="text-[11px] px-2 py-1 rounded-full ${m.live?'bg-red-600/20 text-red-300 border-red-500/30':'bg-white/5 border-white/10'} border">${m.time}</span>
+        ${m.live?`<span class="text-[11px] font-bold px-2 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/25 animate-pulse">LIVE ${m.score||''}</span>`:''}
+        <button class="ml-auto text-[11px] px-2.5 py-1 rounded-full bg-[#b80000]/20 hover:bg-[#b80000]/30 border border-red-500/20 text-red-200 font-semibold ai-btn" data-id="${m.id}">IA ${aiOn?'ON':'•'}</button>
+      </div>
+      <div class="flex items-center justify-between gap-3">
+        <div class="min-w-0 flex-1">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-white/5 grid place-items-center text-[12px] font-bold">${m.home.slice(0,2).toUpperCase()}</div>
+            <div class="truncate font-semibold">${m.home}</div>
+          </div>
+          <div class="flex items-center gap-2.5 mt-2">
+            <div class="w-8 h-8 rounded-lg bg-white/5 grid place-items-center text-[12px] font-bold">${m.away.slice(0,2).toUpperCase()}</div>
+            <div class="truncate font-semibold">${m.away}</div>
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-3 w-[58%] sm:w-[46%]">
+          ${['h','x','a'].map((k,i)=> m[k]&&m[k]!=='—'?`
+            <button data-m="${m.id}" data-p="${k}" class="odd tap py-3 px-2 min-h-[48px] rounded-xl bg-[#0b0b12] hover:bg-[#15151f] border border-white/10 hover:border-red-500/40 transition text-center">
+              <div class="text-[10px] opacity-60 leading-none mb-1">${['1','X','2'][i]}</div>
+              <div class="font-extrabold text-[16px] leading-none">${m[k]}</div>
+            </button>
+          `:`<div class="py-3 px-2 min-h-[48px] rounded-xl bg-white/[0.02] border border-white/5 grid place-items-center text-xs opacity-40">—</div>` ).join('')}
+        </div>
+      </div>
+    </article>
+  `).join('');
+  attachOdds();
+}
+renderMatches();
+
+function attachOdds(){
+  document.querySelectorAll('.odd').forEach(b=>{
+    b.onclick = ()=>{
+      const id = +b.dataset.m, pick = b.dataset.p;
+      const m = matchesData.find(x=>x.id===id);
+      const odd = parseFloat(m[pick]);
+      const sel = {id:`${id}-${pick}`, match:`${m.home} - ${m.away}`, pick: pick==='h'?m.home:pick==='a'?m.away:'Nul', odd};
+      if(!bets.find(x=>x.id===sel.id)) bets.push(sel);
+      updateBets();
+      b.classList.add('ring-2','ring-red-500');
+      setTimeout(()=>b.classList.remove('ring-2','ring-red-500'),400);
+    };
+  });
+  document.querySelectorAll('.ai-btn').forEach(b=>{
+    b.onclick = ()=>{
+      const m = matchesData.find(x=>x.id==b.dataset.id);
+      alert(`CONGO AI • ${m.home} vs ${m.away}\nPrédiction: ${Math.random()>0.5?m.home:m.away} • Confiance ${(70+Math.random()*25).toFixed(0)}%`);
+    };
+  });
+}
+
+function updateBets(){
+  const list = document.getElementById('bets');
+  const empty = document.getElementById('emptyBet');
+  if(bets.length===0){ empty.style.display='block'; list.querySelectorAll('.bet-item').forEach(n=>n.remove()); }
+  else {
+    empty.style.display='none';
+    list.querySelectorAll('.bet-item').forEach(n=>n.remove());
+    bets.forEach((b,i)=>{
+      const div = document.createElement('div');
+      div.className='bet-item p-3 rounded-xl bg-black/30 border border-white/10 flex items-center gap-3';
+      div.innerHTML = `<div class="flex-1 min-w-0"><div class="text-[12px] truncate opacity-80">${b.match}</div><div class="font-bold text-sm">${b.pick} • <span class="text-red-300">${b.odd.toFixed(2)}</span></div></div><button class="w-8 h-8 grid place-items-center rounded-lg hover:bg-white/10" data-i="${i}">✕</button>`;
+      div.querySelector('button').onclick = ()=>{ bets.splice(i,1); updateBets(); };
+      list.appendChild(div);
+    });
+  }
+  document.getElementById('betCount').textContent = bets.length;
+  const total = bets.reduce((a,b)=>a*b.odd, bets.length?1:1);
+  document.getElementById('totalOdds').textContent = bets.length? total.toFixed(2):'1.00';
+  calcPotential();
+}
+
+function calcPotential(){
+  const stake = +document.getElementById('stake').value || 0;
+  const total = parseFloat(document.getElementById('totalOdds').textContent);
+  const win = stake * total;
+  document.getElementById('potential').textContent = toCurrency(win);
+}
+
+document.getElementById('stake').oninput = calcPotential;
+document.querySelectorAll('.quick').forEach(q=> q.onclick = ()=>{ document.getElementById('stake').value = q.dataset.quick; calcPotential(); });
+
+document.getElementById('placeBet').onclick = ()=>{
+  if(!bets.length) return alert('Sélectionnez au moins une cote');
+  const stake = +document.getElementById('stake').value;
+  if(stake > balanceCDF) return alert('Solde insuffisant');
+  balanceCDF -= stake;
+  updateBalance();
+  bets = [];
+  updateBets();
+  alert(lang==='fr'?'Pari placé avec succès!':lang==='en'?'Bet placed!':'Pari etiemi!');
+};
+
+// Currency
+document.getElementById('cdfBtn').onclick = ()=>{ currency='CDF'; toggleCurr(); };
+document.getElementById('usdBtn').onclick = ()=>{ currency='USD'; toggleCurr(); };
+function toggleCurr(){
+  document.getElementById('cdfBtn').classList.toggle('bg-white', currency==='CDF');
+  document.getElementById('cdfBtn').classList.toggle('text-[#b80000]', currency==='CDF');
+  document.getElementById('usdBtn').classList.toggle('bg-white', currency==='USD');
+  document.getElementById('usdBtn').classList.toggle('text-[#b80000]', currency==='USD');
+  updateBalance(); calcPotential();
+}
+
+// Language
+document.querySelectorAll('.lang').forEach(b=> b.onclick = ()=>{
+  lang = b.dataset.lang;
+  document.querySelectorAll('.lang').forEach(x=> x.classList.toggle('bg-white', x===b));
+  document.querySelectorAll('.lang').forEach(x=> x.classList.toggle('text-[#b80000]', x===b));
+  document.querySelectorAll('[data-t]').forEach(el=>{ const key=el.dataset.t; if(t[lang][key]) el.textContent = t[lang][key]; });
+});
+
+// Sports filter
+document.querySelectorAll('.sport').forEach(s=> s.onclick = ()=>{
+  document.querySelectorAll('.sport').forEach(x=> x.classList.remove('active','bg-[#b80000]','text-white'));
+  s.classList.add('active','bg-[#b80000]','text-white');
+  const sp = s.dataset.sport;
+  renderMatches(sp==='all'?matchesData:matchesData.filter(m=>m.sport===sp));
+});
+
+// Tabs
+document.querySelectorAll('.tab').forEach(t=> t.onclick = ()=>{ document.querySelectorAll('.tab').forEach(x=> x.classList.remove('active','bg-white','text-black')); t.classList.add('active','bg-white','text-black'); });
+
+// Search leagues
+document.getElementById('leagueSearch').oninput = e => renderLeagues(e.target.value);
+
+// AI toggle
+document.getElementById('aiToggle').onclick = function(){ aiOn=!aiOn; this.textContent = aiOn ? (lang==='fr'?'IA Active ✓':lang==='en'?'AI On ✓':'IA On ✓') : 'Activer l\'IA'; this.classList.toggle('bg-emerald-600', aiOn); };
+
+// Theme
+document.getElementById('themeBtn').onclick = ()=>{
+  document.documentElement.classList.toggle('dark');
+  const isDark = document.documentElement.classList.contains('dark');
+  document.body.classList.toggle('bg-[#f6f6f9]', !isDark);
+  document.body.classList.toggle('text-[#0a0a0f]', !isDark);
+  document.getElementById('moon').classList.toggle('hidden', !isDark);
+  document.getElementById('sun').classList.toggle('hidden', isDark);
+};
+
+// Demo countdown
+const start = Date.now(); const end = start + 60*24*3600*1000;
+function tick(){ const d = Math.max(0, Math.ceil((end-Date.now())/86400000)); document.getElementById('demo-days').textContent = `${d} JOURS`; }
+tick(); setInterval(tick, 3600_000);
+
+// Init
+updateBalance(); updateBets();
+</script>
+</body>
+</html>
